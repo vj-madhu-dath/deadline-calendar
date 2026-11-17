@@ -276,7 +276,7 @@ const RULES = [
     category: "Workplace",
     why: "Statewide minimum wage adjusts January 1. Some cities set a higher local rate, so check your city too.",
     source: "https://www.dir.ca.gov/dlse/faq_minimumwage.htm",
-    applies: (p) => p.state === "CA",
+    applies: (p) => p.state === "CA" && p.employees > 0,
     dates: (p, y) => [`${y}-01-01`],
   },
   {

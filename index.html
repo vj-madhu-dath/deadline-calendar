@@ -4,119 +4,372 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>Deadline Calendar — US business filing dates</title>
-  <meta name="description" content="Answer a few questions and get every US federal and California filing deadline for the next twelve months as a calendar file and a printable checklist. Runs entirely in your browser.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23145c4b'/><rect x='8' y='10' width='16' height='14' rx='2' fill='none' stroke='%23f7f7f2' stroke-width='2'/><path d='M8 15h16M12 8v4M20 8v4' stroke='%23f7f7f2' stroke-width='2'/></svg>">
-  <link rel="stylesheet" href="styles.css">
+  <title>Deadline Calendar — every US business filing date in one place</title>
+  <meta name="description" content="Federal and California filing deadlines that match your entity type, payroll, and state registrations. Export an .ics calendar or print a checklist. Free, no account, nothing uploaded.">
+  <link rel="canonical" href="https://vj-madhu-dath.github.io/deadline-calendar/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Deadline Calendar — every US business filing date in one place">
+  <meta property="og:description" content="Tell it what kind of business you run and get the federal and California deadlines that actually apply, as a calendar file and a printable checklist.">
+  <meta property="og:url" content="https://vj-madhu-dath.github.io/deadline-calendar/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/site.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Deadline Calendar",
+      "url": "https://vj-madhu-dath.github.io/deadline-calendar/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any modern web browser",
+      "description": "Builds a twelve-month list of US federal and California business filing deadlines from a short business profile, then exports an .ics calendar or a printable checklist.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": "Federal payroll deadlines, federal income tax deadlines, California annual tax and Statement of Information, sales tax, OSHA 300A, .ics export, print checklist"
+    }
+  </script>
 </head>
 <body>
-  <a class="skip" href="#results">Skip to results</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="masthead">
-    <div class="wrap">
-      <p class="eyebrow">Small business · United States</p>
-      <h1>Every filing date,<br>in one calendar.</h1>
-      <p class="lede">
-        Tell it what kind of business you run. It builds a twelve-month list of federal
-        and California deadlines, then hands you a calendar file and a printable checklist.
-      </p>
-      <p class="privacy">
-        <span class="dot" aria-hidden="true"></span>
-        Runs entirely in this browser. No account, no upload, no tracking.
-      </p>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="site-brand" href="index.html" aria-label="Deadline Calendar home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#145c4b"/><rect x="7.5" y="9.5" width="17" height="15" rx="2.5" fill="none" stroke="#f7f7f2" stroke-width="1.9"/><path d="M7.5 14.5h17M12 7.5v4M20 7.5v4" stroke="#f7f7f2" stroke-width="1.9" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">Deadline Calendar</span>
+          <span class="brand-sub">federal + California</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle__icon" aria-hidden="true"><span></span><span></span></span>
+        Menu
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <a class="site-nav__link" href="index.html" aria-current="page">Home</a>
+        <a class="site-nav__link" href="blog/index.html">Guides</a>
+        <a class="site-nav__link" href="about.html">About</a>
+        <a class="btn btn--primary btn--small" href="app/">Open the calendar <span class="btn__arrow" aria-hidden="true">→</span></a>
+      </nav>
     </div>
   </header>
 
-  <main class="wrap layout">
-    <form class="panel form" id="profile" autocomplete="off">
-      <h2 class="panel__title">Your business</h2>
-
-      <div class="field">
-        <label for="entity">Entity type</label>
-        <select id="entity" name="entity">
-          <option value="sole">Sole proprietor</option>
-          <option value="smllc">Single-member LLC</option>
-          <option value="llc">Multi-member LLC</option>
-          <option value="partnership">Partnership</option>
-          <option value="scorp">S corporation</option>
-          <option value="ccorp">C corporation</option>
-          <option value="nonprofit">Nonprofit</option>
-        </select>
-        <p class="hint">Pick the structure on your formation paperwork.</p>
-      </div>
-
-      <div class="field">
-        <label for="employees">Employees on payroll</label>
-        <input id="employees" name="employees" type="number" min="0" max="100000" step="1" value="0" inputmode="numeric">
-        <p class="hint">Count yourself only if you take a W-2 salary.</p>
-      </div>
-
-      <div class="field field--check">
-        <input id="contractors" name="contractors" type="checkbox">
-        <label for="contractors">I pay contractors $600 or more a year</label>
-      </div>
-
-      <div class="field">
-        <label for="state">State</label>
-        <select id="state" name="state">
-          <option value="CA">California</option>
-          <option value="none">Federal only</option>
-        </select>
-        <p class="hint">More states are coming. Federal dates apply either way.</p>
-      </div>
-
-      <fieldset class="sub" id="ca-fields">
-        <legend>California details</legend>
-
-        <div class="field field--check">
-          <input id="salesTax" name="salesTax" type="checkbox">
-          <label for="salesTax">I have a California seller's permit</label>
-        </div>
-
-        <div class="field">
-          <label for="caMonth">Registered in California</label>
-          <div class="pair">
-            <select id="caMonth" name="caMonth">
-              <option value="">Month</option>
-            </select>
-            <input id="caYear" name="caYear" type="number" min="1900" max="2100" step="1" placeholder="Year" inputmode="numeric">
+  <main id="main">
+    <section aria-label="Introduction">
+      <div class="wrap">
+        <div class="hero">
+          <div class="hero__copy">
+            <p class="eyebrow">For US small businesses</p>
+            <h1 class="display">Every filing date,<br><em>in one calendar</em>.</h1>
+            <p class="lede">Deadlines depend on what kind of business you run. Answer a few questions and get the federal and California dates that actually apply — as a calendar file and a printable checklist.</p>
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="app/">Open the calendar <span class="btn__arrow" aria-hidden="true">→</span></a>
+              <a class="btn btn--ghost" href="#coverage">See what's covered</a>
+            </div>
+            <ul class="hero__assurance">
+              <li>Free to use</li>
+              <li>No account</li>
+              <li>Nothing uploaded</li>
+            </ul>
           </div>
-          <p class="hint">Used only to date your Statement of Information. Leave blank if unsure.</p>
-        </div>
-      </fieldset>
 
-      <div class="actions">
-        <button class="btn btn--primary" type="button" id="download">Download calendar</button>
-        <button class="btn" type="button" id="print">Print checklist</button>
-      </div>
-      <p class="fineprint" id="form-note"></p>
-    </form>
+          <div class="hero__visual">
+            <div class="window" role="img" aria-label="Example deadline list showing an estimated tax payment, Form 941, a partnership return, and the California annual tax.">
+              <div class="window__bar" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="window__body">
+                <div class="window__head">
+                  <span class="window__title">Next twelve months</span>
+                  <span class="window__count">4 of 24 dates</span>
+                </div>
 
-    <section class="panel results" id="results" aria-live="polite" tabindex="-1">
-      <div class="results__head">
-        <div>
-          <h2 class="panel__title">Next twelve months</h2>
-          <p class="count" id="count">—</p>
+                <div class="window__row">
+                  <span class="window__box" aria-hidden="true"></span>
+                  <span class="window__date">Jan 15<small>Fri</small></span>
+                  <span class="window__label">Estimated income tax
+                    <span class="window__tag">Income tax</span>
+                  </span>
+                </div>
+
+                <div class="window__row">
+                  <span class="window__box" aria-hidden="true"></span>
+                  <span class="window__date">Jan 31<small>Sun</small></span>
+                  <span class="window__label">Form 941 — quarterly payroll
+                    <span class="window__tag">Payroll</span>
+                  </span>
+                </div>
+
+                <div class="window__row">
+                  <span class="window__box" aria-hidden="true"></span>
+                  <span class="window__date">Mar 15<small>Mon</small></span>
+                  <span class="window__label">Form 1065 — partnership return
+                    <span class="window__tag">Income tax</span>
+                  </span>
+                </div>
+
+                <div class="window__row">
+                  <span class="window__box" aria-hidden="true"></span>
+                  <span class="window__date">Apr 15<small>Thu</small></span>
+                  <span class="window__label">California annual tax
+                    <span class="window__tag">California</span>
+                  </span>
+                </div>
+
+                <p class="window__note"><b>7 days before</b> each date, a calendar alert fires.</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <button class="linkbtn" type="button" id="clear">Clear ticks</button>
       </div>
-      <div id="list"></div>
+    </section>
+
+    <section class="trust-strip" aria-label="At a glance">
+      <div class="wrap">
+        <div class="trust-strip__inner">
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.4" stroke="currentColor" stroke-width="1.7"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <div>
+              <strong>Private by design</strong>
+              <span>No account, no upload, no analytics.</span>
+            </div>
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7.5h16M4 12h16M4 16.5h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <div>
+              <strong>Federal and California</strong>
+              <span>Payroll, income tax, state filings, workplace.</span>
+            </div>
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v11M8 11.5l4 4 4-4M5 19.5h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+              <strong>Export anywhere</strong>
+              <span>.ics for any calendar, or a print-ready checklist.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Three answers, then a year of dates</h2>
+          <p class="section-lede">No integrations, no spreadsheet imports, no onboarding call. The whole thing takes about a minute.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <h3>Describe the business</h3>
+            <p>Entity type, payroll headcount, contractors, and whether you are registered in California. Six fields at most.</p>
+          </div>
+          <div class="step">
+            <h3>Read the list</h3>
+            <p>Only the rules that match your answers. Each date shows the agency, why it applies, and a link to its source.</p>
+          </div>
+          <div class="step">
+            <h3>Take it with you</h3>
+            <p>Download an .ics file for Google, Apple, or Outlook, or print the checklist and put it on the wall.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--sunk" id="coverage">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>What goes on the list</h2>
+          <p class="section-lede">Twenty-four rule sets today. The list you see depends on your entity and whether you have employees, contractors, or a seller's permit.</p>
+        </div>
+
+        <div class="table-scroll">
+          <table class="coverage">
+            <thead>
+              <tr>
+                <th scope="col">Area</th>
+                <th scope="col">Included</th>
+                <th scope="col">When it applies</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Payroll</td>
+                <td>941, 940, W-2, 1099-NEC, DE 9 and DE 9C</td>
+                <td>Any employee on a W-2, or contractors paid $600 or more</td>
+              </tr>
+              <tr>
+                <td>Income tax</td>
+                <td>1040, 1065, 1120-S, 1120, 990, estimated payments</td>
+                <td>Always, with the form set by entity type</td>
+              </tr>
+              <tr>
+                <td>California</td>
+                <td>$800 annual tax, Statement of Information, sales tax, minimum wage, pay data</td>
+                <td>Registered in California; sales tax and pay data have their own triggers</td>
+              </tr>
+              <tr>
+                <td>Workplace</td>
+                <td>OSHA Form 300A posting window</td>
+                <td>Most employers with 11 or more employees</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Built for the business you actually run</h2>
+          <p class="section-lede">The same form covers a one-person consultancy and a corporation with a payroll. The list changes; the questions do not.</p>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <span class="card__kicker">Schedule C</span>
+            <h3>Sole proprietor</h3>
+            <p>Personal return, quarterly estimates, and a 1099 season if you hire help.</p>
+          </div>
+          <div class="card">
+            <span class="card__kicker">Disregarded or partnership</span>
+            <h3>LLC</h3>
+            <p>Single-member LLCs follow the owner's return. Multi-member LLCs file 1065.</p>
+          </div>
+          <div class="card">
+            <span class="card__kicker">Pass-through with payroll</span>
+            <h3>S corp and partnership</h3>
+            <p>March 15 information returns, K-1s, and four payroll quarters.</p>
+          </div>
+          <div class="card">
+            <span class="card__kicker">Exempt</span>
+            <h3>Nonprofit</h3>
+            <p>Form 990 series in May, with the version depending on receipts and assets.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Questions people ask before trusting a date</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Is it really free?</summary>
+            <p>Yes. No account, no trial, no paid tier waiting behind a button. The page is static, so there is nothing to bill for.</p>
+          </details>
+          <details>
+            <summary>Where do the dates come from?</summary>
+            <p>Each rule is written against the agency's own published page — IRS, EDD, CDTFA, FTB, the Secretary of State, or OSHA — and every item links to it. The rules live in one JavaScript file in the public repository, so they can be read and corrected.</p>
+          </details>
+          <details>
+            <summary>Does it store my answers?</summary>
+            <p>In your browser's local storage, so the form is still filled in next time. Nothing is sent anywhere. Clearing site data clears it.</p>
+          </details>
+          <details>
+            <summary>My state is not California. Is this useful?</summary>
+            <p>Switch the state to "Federal only" and you get the federal payroll and income tax dates, which apply everywhere. Other states are not covered yet and the page says so rather than guessing.</p>
+          </details>
+          <details>
+            <summary>My fiscal year does not end in December. Will this work?</summary>
+            <p>Not properly. The date rules assume a calendar year and a calendar-quarter filing schedule. Use the list as a starting point and confirm the shifted dates with your accountant.</p>
+          </details>
+          <details>
+            <summary>Can I hand this to my accountant?</summary>
+            <p>That is the point of the export. Download the .ics and send it, or print the checklist and mark what is already done. Both carry the agency and source link for each date.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Guides, not hot takes</h2>
+          <p class="section-lede">Plain explanations of how the filing year is put together, what a missed date really costs, and how to keep the list current.</p>
+        </div>
+        <div class="post-grid">
+          <a class="post-card" href="blog/how-business-filing-deadlines-work.html">
+            <span class="post-card__kicker">Foundations</span>
+            <h3>How business filing deadlines are actually scheduled</h3>
+            <p>Three rhythms — quarterly payroll, annual income tax, and state add-ons — explain almost every date on the list.</p>
+            <span class="post-card__meta">8 min read</span>
+          </a>
+          <a class="post-card" href="blog/what-a-missed-filing-deadline-costs.html">
+            <span class="post-card__kicker">Risk</span>
+            <h3>What a missed filing deadline actually costs</h3>
+            <p>Penalty, interest, and lost standing are three separate failures. Here is which one bites first.</p>
+            <span class="post-card__meta">8 min read</span>
+          </a>
+          <a class="post-card" href="blog/how-to-build-a-compliance-calendar.html">
+            <span class="post-card__kicker">Practice</span>
+            <h3>How to build a compliance calendar in one afternoon</h3>
+            <p>A five-step method that works with this tool, a spreadsheet, or a paper wall planner.</p>
+            <span class="post-card__meta">8 min read</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="cta-band">
+          <div>
+            <h2>Start with the business you actually run.</h2>
+            <p>Six fields, no sign-up, and a list you can put in your calendar before the next deadline.</p>
+          </div>
+          <a class="btn" href="app/">Open the calendar <span class="btn__arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer class="foot">
+  <footer class="site-footer">
     <div class="wrap">
-      <p>
-        <strong>Not tax or legal advice.</strong> Dates assume a December fiscal year and a
-        calendar-quarter filing schedule. Confirm anything you rely on with your accountant
-        or the agency linked on each item.
-      </p>
-      <p class="foot__meta">Built as a static page. Your answers stay in this browser's storage.</p>
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <a class="site-brand" href="index.html" aria-label="Deadline Calendar home">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#145c4b"/><rect x="7.5" y="9.5" width="17" height="15" rx="2.5" fill="none" stroke="#f7f7f2" stroke-width="1.9"/><path d="M7.5 14.5h17M12 7.5v4M20 7.5v4" stroke="#f7f7f2" stroke-width="1.9" stroke-linecap="round"/></svg>
+            </span>
+            <span class="brand-text">
+              <span class="brand-name">Deadline Calendar</span>
+              <span class="brand-sub">federal + California</span>
+            </span>
+          </a>
+          <p>A static page that turns a business profile into a year of filing dates. No backend, no account, no tracking.</p>
+        </div>
+
+        <div class="site-footer__col">
+          <h2>Explore</h2>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="app/">The calendar</a></li>
+            <li><a href="blog/index.html">Guides</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+
+        <div class="site-footer__col">
+          <h2>Popular guides</h2>
+          <ul>
+            <li><a href="blog/where-to-find-official-filing-dates.html">Official filing dates</a></li>
+            <li><a href="blog/when-the-next-twelve-months-of-deadlines-land.html">The next twelve months</a></li>
+            <li><a href="blog/who-has-to-file-form-941.html">Who files Form 941</a></li>
+            <li><a href="blog/best-free-compliance-calendars.html">Free calendars compared</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="site-footer__base">
+        <span>© <span data-year>2026</span> Deadline Calendar</span>
+        <span>Not tax or legal advice. Confirm dates with the agency or your accountant.</span>
+      </div>
     </div>
   </footer>
 
-  <script src="rules.js"></script>
-  <script src="ics.js"></script>
-  <script src="app.js"></script>
+  <script src="assets/site.js" defer></script>
 </body>
 </html>

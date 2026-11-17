@@ -51,6 +51,62 @@ body {
   left: 12px;
 }
 
+/* App bar */
+
+.appbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.appbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 60px;
+}
+
+.appbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14.5px;
+  font-weight: 650;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.appbar__brand svg {
+  width: 26px;
+  height: 26px;
+}
+
+.appbar__nav {
+  display: flex;
+  gap: 20px;
+  font-size: 13.5px;
+}
+
+.appbar__nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.appbar__nav a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 520px) {
+  .appbar__nav {
+    gap: 13px;
+    font-size: 12.5px;
+  }
+}
+
 /* Masthead */
 
 .masthead {
@@ -92,6 +148,19 @@ h1 {
   margin: 22px 0 0;
   font-size: 14px;
   color: var(--ink-faint);
+}
+
+.masthead--app {
+  padding: 46px 0 34px;
+}
+
+.masthead--app h1 {
+  font-size: clamp(32px, 4.4vw, 44px);
+}
+
+.masthead--app .lede {
+  margin-top: 14px;
+  max-width: 62ch;
 }
 
 .dot {
@@ -298,6 +367,10 @@ a:focus-visible {
   color: var(--ink-faint);
 }
 
+.results__head > div {
+  min-width: 0;
+}
+
 .linkbtn {
   background: none;
   border: 0;
@@ -307,6 +380,8 @@ a:focus-visible {
   color: var(--ink-faint);
   text-decoration: underline;
   text-underline-offset: 3px;
+  white-space: nowrap;
+  flex: none;
   cursor: pointer;
 }
 
@@ -422,6 +497,55 @@ a:focus-visible {
   color: var(--ink);
   font-size: 15px;
   margin-bottom: 4px;
+}
+
+/* After the tool */
+
+.after-tool {
+  padding: 8px 0 56px;
+}
+
+.after-tool__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  padding: 26px 28px;
+  background: #fbfbf8;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.after-tool h2 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.after-tool ul {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.after-tool li {
+  margin-bottom: 6px;
+}
+
+.after-tool p {
+  margin: 0;
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  .after-tool__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 22px;
+  }
 }
 
 /* Footer */

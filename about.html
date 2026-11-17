@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>About — Deadline Calendar</title>
+  <meta name="description" content="What Deadline Calendar covers, what it deliberately leaves out, how its rules are maintained, and why it runs entirely in your browser.">
+  <link rel="canonical" href="https://vj-madhu-dath.github.io/deadline-calendar/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About — Deadline Calendar">
+  <meta property="og:description" content="Scope, limits, maintenance, and privacy for the Deadline Calendar.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="site-brand" href="index.html" aria-label="Deadline Calendar home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#145c4b"/><rect x="7.5" y="9.5" width="17" height="15" rx="2.5" fill="none" stroke="#f7f7f2" stroke-width="1.9"/><path d="M7.5 14.5h17M12 7.5v4M20 7.5v4" stroke="#f7f7f2" stroke-width="1.9" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">Deadline Calendar</span>
+          <span class="brand-sub">federal + California</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle__icon" aria-hidden="true"><span></span><span></span></span>
+        Menu
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="blog/index.html">Guides</a>
+        <a class="site-nav__link" href="about.html" aria-current="page">About</a>
+        <a class="btn btn--primary btn--small" href="app/">Open the calendar <span class="btn__arrow" aria-hidden="true">→</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="about-hero">
+      <div class="wrap">
+        <p class="eyebrow">About</p>
+        <h1 class="display">A filing list that knows what kind of business you run.</h1>
+        <p class="lede">Most deadline lists are written for everyone, which means they fit no one. This one starts from six facts about your business and shows only the dates that follow from them.</p>
+      </div>
+    </section>
+
+    <section class="about-body">
+      <div class="wrap about-grid">
+        <div class="prose">
+          <h2>Why it exists</h2>
+          <p>A sole proprietor and a C corporation with twelve employees do not share a filing calendar. One files a Schedule C in April; the other files a Form 1120 in April, runs payroll every quarter, and owes California's $800 minimum tax whether or not it made money that year. Generic tax calendars list everything and leave the reader to work out which lines apply.</p>
+          <p>That work is mechanical, and mechanical work is what software is good at. The rules are not complicated once they are written down: entity type decides the income tax form, headcount decides the payroll forms, a seller's permit decides the sales tax return, and a California registration adds the state layer.</p>
+
+          <h2>What it does</h2>
+          <p>You answer six questions. The page builds a twelve-month list, groups it by month, and explains each item in a sentence: who owns the date, why it applies to you, and where the official page is. Items can be ticked off as they are handled, and the state is saved in your browser so the list is still there next time.</p>
+          <p>Two exports come out of the same list. The <code>.ics</code> file imports into Google Calendar, Apple Calendar, or Outlook, with a reminder seven days before each date. The print view drops the form and produces a compact checklist with the sources still attached.</p>
+
+          <h2>What it leaves out</h2>
+          <p>Deliberately, and the interface says so rather than pretending otherwise:</p>
+          <ul>
+            <li><strong>States other than California.</strong> State rules differ too much to fake. Federal-only mode is honest; a guessed state rule is not.</li>
+            <li><strong>Fiscal years.</strong> The rules assume a December year end. A June year end shifts most of these dates, and the app does not attempt the shift.</li>
+            <li><strong>Volatile filings.</strong> Beneficial ownership reporting, ACA forms, and EEO-1 have changed repeatedly in recent years. They are left out until their dates settle.</li>
+            <li><strong>Holiday adjustment.</strong> A date that lands on a weekend is flagged in the interface. A weekday federal holiday is not detected yet.</li>
+          </ul>
+
+          <h2>How the rules are kept</h2>
+          <p>Every rule lives in one file in the public repository, next to the date it produces and the agency page it came from. When a form changes, the fix is a small edit and a note in the changelog, not a database migration. Corrections can be filed as an issue on the repository, and they are the most useful kind of feedback this project gets.</p>
+
+          <h2>Privacy</h2>
+          <p>There is no backend. The page is static files served by GitHub Pages, and the only storage is <code>localStorage</code> in your own browser. No account, no analytics script, no third-party font, no request that carries your answers anywhere. Clearing site data removes everything the page knows about you.</p>
+
+          <h2>Not advice</h2>
+          <p>This is a calendar, not a tax preparer. It does not file anything, does not know your income, and cannot tell you whether a particular election makes sense. The dates are a starting point for a conversation with an accountant, and each one links to the agency that actually decides it.</p>
+
+          <h2>Changelog</h2>
+          <p><strong>18 November 2026</strong> — First release. Federal and California rules, .ics export, print checklist, saved profiles.</p>
+        </div>
+
+        <aside>
+          <ul class="fact-list">
+            <li><strong>Built</strong> November 2026</li>
+            <li><strong>Covers</strong> US federal and California</li>
+            <li><strong>Runs on</strong> Static HTML, CSS, and JavaScript</li>
+            <li><strong>Stores</strong> Your browser's local storage only</li>
+            <li><strong>Costs</strong> Nothing</li>
+            <li><strong>Source</strong> <a href="https://github.com/vj-madhu-dath/deadline-calendar" target="_blank" rel="noopener noreferrer">github.com/vj-madhu-dath/deadline-calendar</a></li>
+            <li><strong>Corrections</strong> <a href="https://github.com/vj-madhu-dath/deadline-calendar/issues" target="_blank" rel="noopener noreferrer">Open an issue</a></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="cta-band">
+          <div>
+            <h2>See the list for your business.</h2>
+            <p>Six fields. No sign-up. About a minute.</p>
+          </div>
+          <a class="btn" href="app/">Open the calendar <span class="btn__arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <a class="site-brand" href="index.html" aria-label="Deadline Calendar home">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#145c4b"/><rect x="7.5" y="9.5" width="17" height="15" rx="2.5" fill="none" stroke="#f7f7f2" stroke-width="1.9"/><path d="M7.5 14.5h17M12 7.5v4M20 7.5v4" stroke="#f7f7f2" stroke-width="1.9" stroke-linecap="round"/></svg>
+            </span>
+            <span class="brand-text">
+              <span class="brand-name">Deadline Calendar</span>
+              <span class="brand-sub">federal + California</span>
+            </span>
+          </a>
+          <p>A static page that turns a business profile into a year of filing dates. No backend, no account, no tracking.</p>
+        </div>
+
+        <div class="site-footer__col">
+          <h2>Explore</h2>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="app/">The calendar</a></li>
+            <li><a href="blog/index.html">Guides</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+
+        <div class="site-footer__col">
+          <h2>Popular guides</h2>
+          <ul>
+            <li><a href="blog/where-to-find-official-filing-dates.html">Official filing dates</a></li>
+            <li><a href="blog/when-the-next-twelve-months-of-deadlines-land.html">The next twelve months</a></li>
+            <li><a href="blog/who-has-to-file-form-941.html">Who files Form 941</a></li>
+            <li><a href="blog/best-free-compliance-calendars.html">Free calendars compared</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="site-footer__base">
+        <span>© <span data-year>2026</span> Deadline Calendar</span>
+        <span>Not tax or legal advice. Confirm dates with the agency or your accountant.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/site.js" defer></script>
+</body>
+</html>
